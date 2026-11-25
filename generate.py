@@ -1,5 +1,7 @@
 """Générateur de Shorts hors abonnement : Pillow + eSpeak + FFmpeg."""
 import argparse, json, shutil, subprocess
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent
@@ -66,7 +68,8 @@ def still(person,speech,path):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--id',default='q001');p.add_argument('--output',default='output');a=p.parse_args()
     questions=json.loads((ROOT/'questions.json').read_text(encoding='utf-8'))
-    q=next((q for q in questions if q['id']==a.id),None)
+    selected_id=(questions[datetime.now(ZoneInfo('America/Toronto')).date().toordinal()%len(questions)]['id'] if a.id=='auto' else a.id)
+    q=next((q for q in questions if q['id']==selected_id),None)
     if q is None:raise SystemExit('Question inconnue: '+a.id)
     out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=True)
     espeak=shutil.which('espeak-ng') or shutil.which('espeak')
