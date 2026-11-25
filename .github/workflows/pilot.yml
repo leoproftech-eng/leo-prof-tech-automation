@@ -1,0 +1,33 @@
+name: Générer un Short pilote
+on:
+  workflow_dispatch:
+    inputs:
+      question_id:
+        description: "Choisir q001 à q006"
+        required: false
+        default: q001
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dépendances gratuites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg espeak-ng fonts-dejavu-core
+          python -m pip install -r requirements.txt
+      - name: Produire la vidéo
+        env:
+          QUESTION_ID: ${{ inputs.question_id }}
+        run: python generate.py --id "$QUESTION_ID" --output output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: short-pilote-leo-prof
+          path: output/
+          retention-days: 7
