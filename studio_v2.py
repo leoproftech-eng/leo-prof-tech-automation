@@ -6,6 +6,7 @@ from datetime import datetime
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from edge_tts import Communicate
+import shutil
 
 BASE=Path(__file__).parent
 W,H=720,1280
@@ -72,7 +73,17 @@ def frame(name,sentence,category,num,dest):
     im.save(dest)
 
 async def audio(text,voice,path):
-    await Communicate(text,voice,rate='+4%').save(str(path))
+    try:
+        await Communicate(text,voice,rate='+4%').save(str(path))
+    except Exception as exc:
+        # Mode dégradé : une coupure du service TTS ne doit pas casser le pilote.
+        espeak=shutil.which('espeak-ng')
+        if not espeak:
+            raise RuntimeError('TTS indisponible et moteur de secours absent') from exc
+        wav=path.with_suffix('.wav')
+        subprocess.run([espeak,'-v','fr','-s','150','-w',str(wav),text],check=True)
+        ff('-i',wav,'-codec:a','libmp3lame','-qscale:a','3',path)
+        print('Voix de secours utilisée :',exc)
 
 async def main():
     ap=argparse.ArgumentParser();ap.add_argument('--id',default='auto');ap.add_argument('--output',default='output');args=ap.parse_args()
