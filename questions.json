@@ -1,0 +1,50 @@
+[
+  {
+    "id": "q001",
+    "category": "Internet",
+    "level": "débutant",
+    "question": "Le Wi-Fi et Internet, est-ce la même chose ?",
+    "answer": "Non, Léo ! Le Wi-Fi relie ton appareil à ton routeur sans câble. Internet relie des réseaux du monde entier. Tu peux donc avoir du Wi-Fi sans accès à Internet !",
+    "source": "https://www.cloudflare.com/learning/network-layer/what-is-a-router/"
+  },
+  {
+    "id": "q002",
+    "category": "Sécurité",
+    "level": "débutant",
+    "question": "À quoi sert l'authentification à deux facteurs ?",
+    "answer": "Elle ajoute une deuxième vérification à ton mot de passe. Par exemple, un code dans une application. Si ton mot de passe est volé, cette seconde preuve peut empêcher quelqu'un d'accéder à ton compte.",
+    "source": "https://www.cisa.gov/secure-our-world/turn-mfa"
+  },
+  {
+    "id": "q003",
+    "category": "Web",
+    "level": "intermédiaire",
+    "question": "C'est quoi le DNS ?",
+    "answer": "Le DNS est un annuaire d'Internet. Quand tu écris le nom d'un site, il aide ton appareil à trouver l'adresse IP du serveur correspondant.",
+    "source": "https://www.cloudflare.com/learning/dns/what-is-dns/"
+  },
+  {
+    "id": "q004",
+    "category": "IA",
+    "level": "débutant",
+    "question": "Est-ce que l'intelligence artificielle dit toujours la vérité ?",
+    "answer": "Non. Une IA générative peut produire une réponse très convaincante mais incorrecte. Pour les décisions importantes, il faut vérifier ses affirmations avec des sources fiables.",
+    "source": "https://www.nist.gov/itl/ai-risk-management-framework"
+  },
+  {
+    "id": "q005",
+    "category": "Programmation",
+    "level": "expert",
+    "question": "Qu'est-ce qu'une API idempotente ?",
+    "answer": "Une opération idempotente a le même effet final lorsqu'on la répète. C'est très pratique pour réessayer une requête après une coupure réseau sans créer de doublons.",
+    "source": "https://developer.mozilla.org/en-US/docs/Glossary/Idempotent"
+  },
+  {
+    "id": "q006",
+    "category": "Cloud",
+    "level": "intermédiaire",
+    "question": "Quelle différence entre synchronisation et sauvegarde ?",
+    "answer": "La synchronisation répercute les changements entre tes appareils, parfois aussi les suppressions. Une sauvegarde permet de retrouver une ancienne version en cas de problème.",
+    "source": "https://support.microsoft.com/onedrive"
+  }
+]
