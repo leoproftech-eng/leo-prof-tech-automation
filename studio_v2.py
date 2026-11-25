@@ -99,11 +99,11 @@ async def main():
         await audio(speech,voice,sound)
         # Légère animation de zoom et sous-titres intégrés dans la composition.
         ff('-loop','1','-framerate','25','-i',still,'-i',sound,
-           '-vf','zoompan=z=min(zoom+0.0003\\,1.05):d=1:s=720x1280:fps=25',
+           '-vf','scale=720:1280',
            '-c:v','libx264','-preset','veryfast','-pix_fmt','yuv420p',
            '-c:a','aac','-b:a','160k','-shortest','-movflags','+faststart',clip)
         videos.append(clip)
-    manifest=out/'concat.txt';manifest.write_text(''.join("file '"+p.name+"'\\n" for p in videos))
+    manifest=out/'concat.txt';manifest.write_text(''.join("file '"+p.name+"'\n" for p in videos))
     video=out/(q['id']+'_studio_v2.mp4')
     ff('-f','concat','-safe','0','-i',manifest,'-c','copy','-movflags','+faststart',video)
     (out/'metadata.json').write_text(json.dumps({'title':q['question']+' | Léo & le Prof Tech #Shorts','source':q['source'],'status':'NOT_PUBLISHED'},ensure_ascii=False,indent=2))
