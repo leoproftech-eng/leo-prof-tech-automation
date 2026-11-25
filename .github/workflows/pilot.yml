@@ -1,11 +1,13 @@
 name: Générer un Short pilote
 on:
+  schedule:
+    - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
       question_id:
         description: "Choisir q001 à q006"
         required: false
-        default: q001
+        default: auto
 permissions:
   contents: read
 jobs:
@@ -25,7 +27,7 @@ jobs:
       - name: Produire la vidéo
         env:
           QUESTION_ID: ${{ inputs.question_id }}
-        run: python generate.py --id "$QUESTION_ID" --output output
+        run: python generate.py --id "${QUESTION_ID:-auto}" --output output
       - uses: actions/upload-artifact@v4
         with:
           name: short-pilote-leo-prof
