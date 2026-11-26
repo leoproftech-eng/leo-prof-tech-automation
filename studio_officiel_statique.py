@@ -152,12 +152,12 @@ async def main():
     listing.write_text("".join(f"file '{v.name}'\n" for v in videos))
     final=out/"Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4"
     cmd("-f","concat","-safe","0","-i",listing,"-c","copy","-movflags","+faststart",final)
-    description=("🔎 Trois questions, trois réponses : découvrons le monde avec Léo & le Prof !\\n\\n"
-                 "Abonne-toi pour une découverte chaque jour : " + SUBSCRIBE_URL + "\\n"
-                 "Ouvre notre profil YouTube et utilise le bouton S'abonner.\\n\\n"
-                 "Sources des réponses :\\n" +
-                 "\\n".join(q["source"] for q in selected) +
-                 "\\n\\n#LeoEtLeProf #Sciences #CultureGenerale #Shorts")
+    description=("🔎 Trois questions, trois réponses : découvrons le monde avec Léo & le Prof !\n\n"
+                 "Abonne-toi pour une découverte chaque jour : " + SUBSCRIBE_URL + "\n"
+                 "Ouvre notre profil YouTube et utilise le bouton S'abonner.\n\n"
+                 "Sources des réponses :\n" +
+                 "\n".join(q["source"] for q in selected) +
+                 "\n\n#LeoEtLeProf #Sciences #CultureGenerale #Shorts")
     metadata={"published":False,"voice_engine":"edge-tts",
               "leo_voice":args.leo_voice,"prof_voice":args.prof_voice,
               "question_ids":[q["id"] for q in selected],
