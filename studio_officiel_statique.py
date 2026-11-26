@@ -14,6 +14,8 @@ from edge_tts import Communicate
 ROOT = Path(__file__).resolve().parent
 AVATARS = ROOT / "assets" / "avatars"
 W, H = 720, 1280
+CHANNEL_URL = "https://www.youtube.com/channel/UCk-B48dgzUSkcWsQxAQboQw"
+SUBSCRIBE_URL = CHANNEL_URL + "?sub_confirmation=1"
 SUBSCRIBE_MESSAGE = ("Chaque jour, une nouvelle découverte pour mieux comprendre le monde ! "
                      "Abonne-toi à Léo & le Prof pour apprendre quelque chose d'utile chaque jour.")
 BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -82,11 +84,23 @@ def render(leo,prof,speaker,text,num,path):
         d.rounded_rectangle((66,860,312,910),radius=14,fill=accent)
         d.text((189,884),f"QUESTION {num} / 3",anchor="mm",font=ft(23),fill=(7,27,50))
         d.text((659,884),"QUESTION" if speaker=="Léo" else "RÉPONSE",anchor="rm",font=ft(18),fill=(193,229,239))
-    size=37 if len(text)<57 else 29 if len(text)>125 else 33
-    lines=wrap(d,text,ft(size),570)
-    step=size+14;y=1030-(len(lines)-1)*step/2
-    for line in lines:
-        d.text((360,int(y)),line,anchor="mm",font=ft(size),fill="white");y+=step
+    if num == 4:
+        # URL réelle, visible à l'écran. Le texte incrusté dans un Short n'est pas cliquable.
+        lines=wrap(d,text,ft(25),570)
+        y=947
+        for line in lines:
+            d.text((360,y),line,anchor="mm",font=ft(25),fill="white")
+            y+=38
+        d.text((360,1102),"LIEN D'ABONNEMENT : PROFIL DE LA CHAÎNE",
+               anchor="mm",font=ft(18),fill=(255,218,105))
+        d.text((360,1135),"youtube.com/channel/UCk-B48dgzUSkcWsQxAQboQw",
+               anchor="mm",font=ft(15),fill=(191,224,244))
+    else:
+        size=37 if len(text)<57 else 29 if len(text)>125 else 33
+        lines=wrap(d,text,ft(size),570)
+        step=size+14;y=1030-(len(lines)-1)*step/2
+        for line in lines:
+            d.text((360,int(y)),line,anchor="mm",font=ft(size),fill="white");y+=step
     for n in range(3):
         d.rounded_rectangle((267+n*65,1192,315+n*65,1203),radius=5,fill=(255,203,72) if n<num else (61,97,121))
     d.text((360,1244),"SCIENCES  •  DÉCOUVERTES  •  CULTURE",anchor="mm",font=ft(18),fill=(197,220,235))
@@ -139,11 +153,22 @@ async def main():
     listing.write_text("".join(f"file '{v.name}'\n" for v in videos))
     final=out/"Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4"
     cmd("-f","concat","-safe","0","-i",listing,"-c","copy","-movflags","+faststart",final)
-    (out/"metadata.json").write_text(json.dumps({"published":False,"voice_engine":"edge-tts",
-        "leo_voice":args.leo_voice,"prof_voice":args.prof_voice,
-        "question_ids":[q["id"] for q in selected],"subscribe_message":SUBSCRIBE_MESSAGE,
-        "requires_approval":True},
-        ensure_ascii=False,indent=2))
+    description=("🔎 Trois questions, trois réponses : découvrons le monde avec Léo & le Prof !\\n\\n"
+                 "Abonne-toi pour une découverte chaque jour : " + SUBSCRIBE_URL + "\\n"
+                 "Ouvre notre profil YouTube et utilise le bouton S'abonner.\\n\\n"
+                 "Sources des réponses :\\n" +
+                 "\\n".join(q["source"] for q in selected) +
+                 "\\n\\n#LeoEtLeProf #Sciences #CultureGenerale #Shorts")
+    metadata={"published":False,"voice_engine":"edge-tts",
+              "leo_voice":args.leo_voice,"prof_voice":args.prof_voice,
+              "question_ids":[q["id"] for q in selected],
+              "subscribe_message":SUBSCRIBE_MESSAGE,
+              "subscribe_url":SUBSCRIBE_URL,
+              "channel_url":CHANNEL_URL,
+              "youtube_description":description,
+              "requires_approval":True}
+    (out/"metadata.json").write_text(json.dumps(metadata,ensure_ascii=False,indent=2),encoding="utf-8")
+    (out/"youtube_description.txt").write_text(description,encoding="utf-8")
     print("Fichier de validation :",final)
 
 if __name__=="__main__":
