@@ -38,7 +38,7 @@ def frame(name,sentence,category,num,dest):
     for y in range(70,H,100):d.line((0,y,720,y),fill=(16,51,85),width=1)
     accent='#FFCD43' if name=='Léo' else '#4BE2EF'
     d.rounded_rectangle((38,45,682,132),radius=25,fill='#0D3861',outline='#2987B1',width=3)
-    d.text((360,91),'LÉO & LE PROF TECH',font=font(33,True),anchor='mm',fill='white')
+    d.text((360,91),'LÉO & LE PROF',font=font(33,True),anchor='mm',fill='white')
     d.rounded_rectangle((42,165,678,235),radius=21,fill=accent)
     d.text((360,200),category.upper()+'  •  ÉPISODE '+str(num),font=font(23,True),anchor='mm',fill='#07162F')
     # Illustration-avatar flat 2D simple et cohérente; assets illustrés à remplacer par avatars officiels
@@ -106,6 +106,6 @@ async def main():
     manifest=out/'concat.txt';manifest.write_text(''.join("file '"+p.name+"'\n" for p in videos))
     video=out/(q['id']+'_studio_v2.mp4')
     ff('-f','concat','-safe','0','-i',manifest,'-c','copy','-movflags','+faststart',video)
-    (out/'metadata.json').write_text(json.dumps({'title':q['question']+' | Léo & le Prof Tech #Shorts','source':q['source'],'status':'NOT_PUBLISHED'},ensure_ascii=False,indent=2))
+    (out/'metadata.json').write_text(json.dumps({'title':q['question']+' | Léo & le Prof #Shorts','source':q['source'],'status':'NOT_PUBLISHED'},ensure_ascii=False,indent=2))
     print('Généré:',video)
 if __name__=='__main__': asyncio.run(main())
