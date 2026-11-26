@@ -85,3 +85,8 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - L'utilisateur confirme que **la vidéo produite est correcte** après le renommage « Léo & le Prof ».
 - Conserver ce rendu comme **référence de présentation validée** : deux avatars officiels fixes, format vertical, 3 questions-réponses, identité bleue, voix françaises de la version testée.
 - Avant publication automatique : vérifier l'authentification YouTube, la conformité éditoriale, le caractère inédit et la bonne attribution des sources ; aucune autorisation de publication automatique n'est encore configurée ni confirmée.
+
+## Appel à l'abonnement (version 1 approuvée)
+- À la fin de chaque Short, après la troisième réponse, **le Prof** prononce : « Chaque jour, une nouvelle découverte pour mieux comprendre le monde ! Abonne-toi à Léo & le Prof pour apprendre quelque chose d'utile chaque jour. »
+- Carte finale aux couleurs de la chaîne avec l'indication visuelle **S'ABONNER**.
+- Intégré au générateur principal `studio_officiel_statique.py` ; **rendu vidéo de cette nouvelle version non encore vérifié**. Le workflow de test reste manuel et ne publie pas sur YouTube.
