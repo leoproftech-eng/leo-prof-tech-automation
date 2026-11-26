@@ -90,3 +90,11 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - À la fin de chaque Short, après la troisième réponse, **le Prof** prononce : « Chaque jour, une nouvelle découverte pour mieux comprendre le monde ! Abonne-toi à Léo & le Prof pour apprendre quelque chose d'utile chaque jour. »
 - Carte finale aux couleurs de la chaîne avec l'indication visuelle **S'ABONNER**.
 - Intégré au générateur principal `studio_officiel_statique.py` ; **rendu vidéo de cette nouvelle version non encore vérifié**. Le workflow de test reste manuel et ne publie pas sur YouTube.
+
+## Lien d'abonnement officiel (demande validée)
+- URL de la chaîne : https://www.youtube.com/channel/UCk-B48dgzUSkcWsQxAQboQw
+- URL d'abonnement : https://www.youtube.com/channel/UCk-B48dgzUSkcWsQxAQboQw?sub_confirmation=1
+- Le générateur du Short ajoute cette URL à `metadata.json` et `youtube_description.txt` **pour chaque vidéo**, ainsi qu'une indication visuelle de la chaîne à la fin du Short.
+- Le Prof prononce toujours l'appel à l'abonnement approuvé, et le bouton graphique « S'ABONNER » apparaît.
+- **Attention** : le lien imprimé dans l'image d'une vidéo n'est pas interactif ; les URL placées dans les descriptions et commentaires des Shorts ne sont généralement pas cliquables. Il faut aussi inviter les spectateurs à ouvrir le profil de la chaîne et à toucher le bouton d'abonnement.
+- Le workflow reste manuel et aucune vidéo n'est encore publiée automatiquement.
