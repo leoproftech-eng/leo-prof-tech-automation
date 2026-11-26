@@ -56,3 +56,10 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - Un MP4 local de 30,44 secondes a été créé avec les portraits originaux de Léo (chandail bleu) et du Prof (blouse blanche). Il conserve la bande-son du précédent pilote 3 questions.
 - **Ce MP4 n'est pas encore intégré aux GitHub Actions** : les deux PNG originaux doivent être ajoutés à `assets/avatars/leo.png` et `assets/avatars/prof.png` et le moteur de rendu statique doit remplacer le moteur 2D expérimental.
 - Ne pas publier automatiquement avant vérification du son, de la correspondance paroles / textes et approbation du pilote.
+
+## Décision éditoriale confirmée (26 novembre 2026)
+- **Présentation officielle approuvée** : portraits originaux fixes de Léo (hoodie bleu) et du Prof (cheveux gris, lunettes, blouse blanche), côte à côte, palette bleue, halo de l'intervenant, texte de dialogue et 3 questions/réponses dans un Short.
+- **Audio du pilote de 30 secondes refusé** : son de l'ancienne démonstration jugé insuffisant. **Ne pas réutiliser cette bande-son pour publier.**
+- Nouveau moteur `studio_officiel_statique.py` : synthèse vocale Edge TTS, voix distinctes `fr-FR-EloiseNeural` (Léo) et `fr-FR-HenriNeural` (Prof), débit plus posé pour le Prof, aucun remplacement robotique en cas d'échec.
+- Workflow de vérification manuel : `.github/workflows/studio-officiel-statique.yml`, sans publication.
+- **Blocage restant** : importer les deux vrais portraits PNG dans `assets/avatars/leo.png` et `assets/avatars/prof.png` (actuellement disponibles dans les fichiers de la conversation, pas confirmés dans GitHub). Ensuite lancer le workflow et écouter le MP4 avant toute autorisation de publication.
