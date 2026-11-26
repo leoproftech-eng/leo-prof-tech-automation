@@ -104,3 +104,11 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - **Portraits/avatars approuvés** : garder strictement `assets/avatars/leo.png` et `assets/avatars/prof.png` ; ne pas remplacer leurs visages ni leurs tenues.
 - La carte d'abonnement a été corrigée dans le code pour supprimer l'URL visuellement superposée ; un rendu de validation reste à lancer pour contrôler la nouvelle carte finale.
 - Priorité suivante : publier un premier Short validé manuellement, puis préparer et tester l'intégration YouTube sans déclencher de publication automatique prématurée.
+
+## Génération quotidienne programmée (26 novembre 2026)
+- Workflow ajouté : `.github/workflows/daily-generate.yml` avec cron GitHub Actions 22:00 et 23:00 UTC et filtre 18 h locale America/Toronto (gestion de l'heure d'été/hiver). Attention : les déclencheurs GitHub peuvent être retardés et une exécution retardée après 18 h peut être ignorée.
+- Démarrage prévu le 27 novembre 2026 : 3 questions par vidéo ; une vidéo produite par jour maximum, sans publication.
+- Banque actuelle : 12 questions = **4 lots uniques au maximum** (27–30 novembre 2026). Les prochaines journées sont ignorées plutôt que republier des questions ; il faudra enrichir la banque et améliorer la sélection avant une production quotidienne durable.
+- Chaque exécution réussie conserve un MP4, des métadonnées et une description dans les **artifacts GitHub Actions** pendant 14 jours.
+- **YouTube n'est pas connecté à GitHub pour téléverser automatiquement : aucune publication n'est activée.** Les premiers rendus et leur message d'abonnement doivent rester contrôlés avant publication.
+- Un workflow créé n'est pas la preuve d'une exécution réussie ; vérifier les premières exécutions dans GitHub Actions.
