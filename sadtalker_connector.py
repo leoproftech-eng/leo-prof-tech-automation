@@ -30,8 +30,16 @@ def generate(image, audio, output):
         "crop", False, 0, 1.0,
         api_name="/generate",
     )
-    if not isinstance(result, str):
-        raise RuntimeError(f"Résultat API inattendu: {type(result).__name__}")
+    # Le Space renvoie un objet Gradio Video : {"video": "/tmp/...mp4", "subtitles": ...}.
+    # Selon les versions de gradio_client, le résultat peut être enveloppé dans une liste.
+    if isinstance(result, (list, tuple)):
+        result = result[0] if result else None
+    if isinstance(result, dict):
+        result = result.get("video")
+    if isinstance(result, dict):
+        result = result.get("path")
+    if not isinstance(result, str) or not Path(result).is_file():
+        raise RuntimeError(f"Résultat vidéo introuvable ou incompatible : {repr(result)[:300]}")
     import shutil
     dest = Path(output)
     dest.parent.mkdir(parents=True, exist_ok=True)
