@@ -1,0 +1,78 @@
+name: Génération quotidienne - Léo & le Prof (sans publication)
+on:
+  schedule:
+    # Heure de Québec: 22:00 UTC en été, 23:00 UTC en hiver.
+    - cron: '0 22 * * *'
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: leo-prof-generation-quotidienne
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Choisir un lot inédit et filtrer l'heure locale
+        id: plan
+        shell: bash
+        run: |
+          python - <<'PY'
+          import datetime, json, os
+          from zoneinfo import ZoneInfo
+          now = datetime.datetime.now(ZoneInfo("America/Toronto"))
+          start_day = datetime.date(2026, 11, 27)
+          n = (now.date() - start_day).days
+          questions = json.load(open("questions.json", encoding="utf8"))
+          total_batches = len(questions) // 3
+          manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+          # Les deux cron UTC couvrent le changement heure d'été/hiver.
+          # Exécuter uniquement à 18h heure locale. Une exécution retardée
+          # peut sauter la journée; il faut alors la relancer manuellement.
+          should_run = manual or now.hour == 18
+          # Ne jamais boucler à l'infini sur les mêmes 12 questions.
+          if not manual and (n < 0 or n >= total_batches):
+              should_run = False
+              print("Banque épuisée : ajouter 3 nouvelles questions validées par journée.")
+          batch = 0 if manual else max(n, 0)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write(f"run={'true' if should_run else 'false'}\n")
+              out.write(f"start={batch*3}\n")
+              out.write(f"day={now.date()}\n")
+          print("date locale:",now.isoformat(),"lot:",batch+1,"exécuter:",should_run)
+          PY
+      - uses: actions/setup-python@v5
+        if: steps.plan.outputs.run == 'true'
+        with:
+          python-version: '3.11'
+      - name: Dépendances
+        if: steps.plan.outputs.run == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          python -m pip install -r requirements.txt
+      - name: Vérifier les assets et générer le Short
+        if: steps.plan.outputs.run == 'true'
+        run: |
+          test -s assets/avatars/leo.png
+          test -s assets/avatars/prof.png
+          python -m py_compile studio_officiel_statique.py
+          python studio_officiel_statique.py --start "${{ steps.plan.outputs.start }}"
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
+      - name: Conserver le MP4 pour validation (aucune publication)
+        if: steps.plan.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: leo-prof-${{ steps.plan.outputs.day }}-${{ github.run_number }}
+          path: |
+            output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
+            output_officiel/metadata.json
+            output_officiel/youtube_description.txt
+          retention-days: 14
+          if-no-files-found: error
