@@ -50,7 +50,7 @@ def still(person,speech,path):
     for x in range(0,W,68):d.line((x,0,x-190,H),fill=(19,61,103),width=2)
     d.rounded_rectangle((24,24,696,1250),radius=32,outline=(49,146,201),width=3)
     d.rounded_rectangle((52,56,668,139),radius=22,fill=(13,74,122))
-    d.text((W//2,99),'LÉO & LE PROF TECH',font=ft(36,True),anchor='mm',fill='white')
+    d.text((W//2,99),'LÉO & LE PROF',font=ft(36,True),anchor='mm',fill='white')
     d.rounded_rectangle((75,163,645,697),radius=34,fill=(234,242,250))
     avatar(im,person);d=ImageDraw.Draw(im)
     badge=(252,185,37) if person=='Léo' else (66,203,241)
@@ -83,9 +83,9 @@ def main():
         rendered.append(video)
     manifest=out/'segments.txt'
     manifest.write_text(''.join("file '"+f.name+"'\n" for f in rendered),encoding='utf-8')
-    result=out/(q['id']+'_Leo_Prof_Tech.mp4')
+    result=out/(q['id']+'_Leo_et_le_Prof.mp4')
     command('ffmpeg','-y','-loglevel','error','-f','concat','-safe','0','-i',manifest,'-c','copy','-movflags','+faststart',result)
-    metadata={'title':q['question']+' | Léo & le Prof Tech #Shorts','description':q['answer']+'\nSource : '+q['source']+'\n#LeoEtLeProfTech #Shorts','status':'pilot_not_published'}
+    metadata={'title':q['question']+' | Léo & le Prof #Shorts','description':q['answer']+'\nSource : '+q['source']+'\n#LeoEtLeProf #Shorts','status':'pilot_not_published'}
     (out/'metadata.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2),encoding='utf-8')
     print('Vidéo générée :',result)
 
