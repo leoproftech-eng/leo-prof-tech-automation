@@ -37,3 +37,9 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - Deux avatars noirs face à face dans le même décor : Léo à gauche regarde vers la droite, le Prof à droite regarde vers la gauche ; mise en évidence de celui qui parle.
 - Conserver les voix françaises jugées satisfaisantes ; améliorer l'animation, la synchronisation et le montage.
 - La version Studio V2 actuelle est un prototype à une seule question : **elle doit être adaptée et testée avant toute mise en ligne.**
+
+## État de l'intégration SadTalker (26 novembre 2026)
+- La vérification de l'accès à l'API d'un Space Hugging Face a réussi (workflow de contrôle uniquement).
+- **Aucune vidéo animée par SadTalker n'a encore été rendue**. Une connexion réussie ne valide ni le fonctionnement de l'endpoint de rendu, ni le quota GPU, ni les gestes.
+- Le connecteur actuel est expérimental : les arguments de génération doivent être alignés sur l'API effective du Space avant un appel réel.
+- La publication YouTube reste inactive. Le test de rendu nécessitera les portraits de Léo et du Prof ainsi que les pistes vocales de Studio V2.
