@@ -1,14 +1,14 @@
-# Léo & le Prof Tech
+# Léo & le Prof
 
 **Chaîne YouTube :** https://www.youtube.com/channel/UCk-B48dgzUSkcWsQxAQboQw
 
 ## Mission
-Créer un YouTube Short éducatif par jour en français, avec deux avatars noirs récurrents côte à côte : Léo pose **trois questions technologiques successives**, le Prof répond à chacune simplement et avec rigueur.
+Créer un YouTube Short éducatif par jour en français, avec deux avatars noirs récurrents côte à côte : Léo pose **trois questions scientifiques ou de culture générale successives**, le Prof répond à chacune simplement et avec rigueur.
 
 ## Objectif de production
 - **1 seul Short par jour contenant 3 questions et 3 réponses**, publication à 18 h, fuseau `America/Toronto`.
 - Niveau : débutant, intermédiaire et expert.
-- Domaines : informatique, IA, réseaux, cloud, sécurité, programmation et innovations.
+- Domaines : astronomie, sciences et nature, corps humain, géographie, histoire, inventions, culture générale, technologie et IA.
 - Format : vertical 9:16 ; durée cible 45 à 90 secondes selon le rythme et la clarté des réponses. Léo à gauche et le Prof à droite, visibles ensemble, tournés l'un vers l'autre (face à face).
 - Aucune installation sur le PC de l'utilisateur.
 - Budget cible : 0 $ CA/mois, sous réserve des quotas cloud.
@@ -62,11 +62,21 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - **Audio du pilote de 30 secondes refusé** : son de l'ancienne démonstration jugé insuffisant. **Ne pas réutiliser cette bande-son pour publier.**
 - Nouveau moteur `studio_officiel_statique.py` : synthèse vocale Edge TTS, voix distinctes `fr-FR-EloiseNeural` (Léo) et `fr-FR-HenriNeural` (Prof), débit plus posé pour le Prof, aucun remplacement robotique en cas d'échec.
 - Workflow de vérification manuel : `.github/workflows/studio-officiel-statique.yml`, sans publication.
-- **Blocage restant** : importer les deux vrais portraits PNG dans `assets/avatars/leo.png` et `assets/avatars/prof.png` (actuellement disponibles dans les fichiers de la conversation, pas confirmés dans GitHub). Ensuite lancer le workflow et écouter le MP4 avant toute autorisation de publication.
+- Portraits `assets/avatars/leo.png` et `assets/avatars/prof.png` visibles dans GitHub sur la capture utilisateur ; lancer le workflow et écouter le MP4 avant toute autorisation de publication.
 
 ## Nouvelle orientation éditoriale — culture scientifique générale (26 novembre 2026)
 - Décision de l'éditeur : élargir la chaîne au-delà de la technologie et de l'IA vers **toutes les questions scientifiques et de culture générale**.
 - Rubriques : Espace & astronomie ; Sciences & nature ; Corps humain & santé (information générale, sans conseil médical) ; Géographie & planète ; Histoire & découvertes ; Technologie & IA ; Culture générale.
-- Conserver le nom **Léo & le Prof Tech** pour le moment, mais éviter de présenter la chaîne comme réservée à l'informatique ; réévaluer le nom de marque avant publication si nécessaire.
+- **Nom définitif approuvé : Léo & le Prof**. Le nom du dépôt GitHub et l'identifiant technique de la chaîne YouTube peuvent rester inchangés ; le nom public de la chaîne doit être modifié séparément sur YouTube.
 - Format maintenu : 1 Short = 3 questions-réponses, portraits officiels fixes côte à côte, voix françaises naturelles, réponses sourcées, aucune publication sans validation de la qualité.
 - Varier les thèmes dans la semaine sans promettre de publication de contenus non vérifiés. Chaque question doit avoir une référence fiable ; éviter les affirmations sensationnalistes trompeuses.
+
+## Identité de marque définitive — 26 novembre 2026
+- **Nom public choisi : Léo & le Prof** (sans « Tech »).
+- Promesse : « Trois questions. Trois réponses. Une découverte à chaque vidéo. »
+- Univers : science, découvertes et culture générale accessibles à tous, sans prétendre que toutes les réponses ont le même degré de certitude.
+- Style audiovisuel validé : les deux portraits fixes officiels, fond bleu, halo de l'orateur, trois échanges, voix françaises naturelles. La bande son du vieux pilote a été rejetée et ne doit pas être publiée.
+- Le moteur principal `studio_officiel_statique.py` et le workflow `studio-officiel-statique.yml` produisent désormais `Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4`.
+- Le catalogue `questions.json` comprend désormais 12 questions réparties entre informatique, astronomie, nature, géographie, corps humain, histoire et culture générale.
+- La chaîne YouTube doit encore être renommée dans YouTube Studio : aucune modification des paramètres de compte YouTube n'a été réalisée par le dépôt GitHub.
+- Statut : aucun nouveau Short approuvé/publié automatiquement. Validation audio du prochain MP4 requise avant activation de la publication.
