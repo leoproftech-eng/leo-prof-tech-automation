@@ -1,0 +1,43 @@
+name: Studio officiel - avatars fixes et voix naturelles (sans publication)
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: Index de départ (0 à 5)
+        required: false
+        default: '0'
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Installer les composants
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          python -m pip install -r requirements.txt
+      - name: Vérifier les portraits officiels et la syntaxe
+        run: |
+          python -m py_compile studio_officiel_statique.py
+          test -s assets/avatars/leo.png
+          test -s assets/avatars/prof.png
+      - name: Générer le pilote officiel avec voix naturelles
+        run: python studio_officiel_statique.py --start "${{ inputs.start }}"
+      - name: Valider le MP4
+        run: |
+          test -s output_officiel/Leo_Prof_Tech_Officiel_Voix_Naturelles.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 output_officiel/Leo_Prof_Tech_Officiel_Voix_Naturelles.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: leo-prof-officiel-voix-naturelles
+          path: |
+            output_officiel/Leo_Prof_Tech_Officiel_Voix_Naturelles.mp4
+            output_officiel/metadata.json
+          retention-days: 7
+          if-no-files-found: error
