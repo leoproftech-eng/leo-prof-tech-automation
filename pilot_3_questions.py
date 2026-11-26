@@ -14,6 +14,9 @@ from PIL import Image, ImageDraw, ImageFont
 from edge_tts import Communicate
 
 ROOT = Path(__file__).resolve().parent
+AVATARS = ROOT / "assets" / "avatars"
+LEO_IMAGE = AVATARS / "leo.png"
+PROF_IMAGE = AVATARS / "prof.png"
 W, H, FPS = 540, 960, 12
 BG = (7, 19, 43)
 FONT_REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
@@ -101,8 +104,16 @@ def render_frame(speaker, text, topic, qidx, amplitude, t):
     d.rounded_rectangle((18, 124, 522, 176), radius=15, fill=(248, 199, 65))
     centered_text(d, f"QUESTION {qidx}/3  •  {topic.upper()}", 270, 151, 476, 19, (14, 33, 55))
     d.rounded_rectangle((16, 195, 524, 641), radius=22, fill=(13, 45, 77))
-    character(d, 136, 314, True, speaker == "Léo", amplitude, t)
-    character(d, 399, 314, False, speaker == "Le Prof", amplitude, t)
+    # Portraits officiels imposés : jamais de personnages de remplacement.
+    for image_path, center_x in ((LEO_IMAGE, 136), (PROF_IMAGE, 399)):
+        with Image.open(image_path) as source:
+            portrait = source.convert("RGBA")
+            portrait.thumbnail((245, 410), Image.Resampling.LANCZOS)
+            x = int(center_x - portrait.width / 2)
+            y = 223 + (410 - portrait.height)
+            im.paste(portrait, (x, y), portrait)
+    # NOTE : portraits statiques pour le moment. Une synchronisation réaliste
+    # doit préserver les visages; ne pas dessiner de bouche par-dessus.
     d.rounded_rectangle((46, 606, 226, 649), radius=12,
                         fill=(248, 199, 65) if speaker == "Léo" else (44, 86, 114))
     d.rounded_rectangle((310, 606, 494, 649), radius=12,
@@ -160,6 +171,9 @@ async def main():
     p.add_argument("--output", default="output_pilot_3")
     p.add_argument("--start", type=int, default=0, help="Index de la première question")
     args = p.parse_args()
+    missing = [str(p) for p in (LEO_IMAGE, PROF_IMAGE) if not p.is_file()]
+    if missing:
+        raise FileNotFoundError("Portraits officiels absents : " + ", ".join(missing) + ". Importer les PNG validés avant tout rendu ; aucun avatar de substitution ne sera généré.")
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
     questions = json.loads((ROOT / "questions.json").read_text(encoding="utf8"))
