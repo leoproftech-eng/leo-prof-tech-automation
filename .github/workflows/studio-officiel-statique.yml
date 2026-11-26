@@ -31,13 +31,13 @@ jobs:
         run: python studio_officiel_statique.py --start "${{ inputs.start }}"
       - name: Valider le MP4
         run: |
-          test -s output_officiel/Leo_Prof_Tech_Officiel_Voix_Naturelles.mp4
-          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 output_officiel/Leo_Prof_Tech_Officiel_Voix_Naturelles.mp4
+          test -s output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
       - uses: actions/upload-artifact@v4
         with:
           name: leo-prof-officiel-voix-naturelles
           path: |
-            output_officiel/Leo_Prof_Tech_Officiel_Voix_Naturelles.mp4
+            output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
             output_officiel/metadata.json
           retention-days: 7
           if-no-files-found: error
