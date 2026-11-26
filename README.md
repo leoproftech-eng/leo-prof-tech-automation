@@ -80,3 +80,8 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - Le catalogue `questions.json` comprend désormais 12 questions réparties entre informatique, astronomie, nature, géographie, corps humain, histoire et culture générale.
 - La chaîne YouTube doit encore être renommée dans YouTube Studio : aucune modification des paramètres de compte YouTube n'a été réalisée par le dépôt GitHub.
 - Statut : aucun nouveau Short approuvé/publié automatiquement. Validation audio du prochain MP4 requise avant activation de la publication.
+
+## Validation utilisateur du pilote — 26 novembre 2026
+- L'utilisateur confirme que **la vidéo produite est correcte** après le renommage « Léo & le Prof ».
+- Conserver ce rendu comme **référence de présentation validée** : deux avatars officiels fixes, format vertical, 3 questions-réponses, identité bleue, voix françaises de la version testée.
+- Avant publication automatique : vérifier l'authentification YouTube, la conformité éditoriale, le caractère inédit et la bonne attribution des sources ; aucune autorisation de publication automatique n'est encore configurée ni confirmée.
