@@ -63,3 +63,10 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - Nouveau moteur `studio_officiel_statique.py` : synthèse vocale Edge TTS, voix distinctes `fr-FR-EloiseNeural` (Léo) et `fr-FR-HenriNeural` (Prof), débit plus posé pour le Prof, aucun remplacement robotique en cas d'échec.
 - Workflow de vérification manuel : `.github/workflows/studio-officiel-statique.yml`, sans publication.
 - **Blocage restant** : importer les deux vrais portraits PNG dans `assets/avatars/leo.png` et `assets/avatars/prof.png` (actuellement disponibles dans les fichiers de la conversation, pas confirmés dans GitHub). Ensuite lancer le workflow et écouter le MP4 avant toute autorisation de publication.
+
+## Nouvelle orientation éditoriale — culture scientifique générale (26 novembre 2026)
+- Décision de l'éditeur : élargir la chaîne au-delà de la technologie et de l'IA vers **toutes les questions scientifiques et de culture générale**.
+- Rubriques : Espace & astronomie ; Sciences & nature ; Corps humain & santé (information générale, sans conseil médical) ; Géographie & planète ; Histoire & découvertes ; Technologie & IA ; Culture générale.
+- Conserver le nom **Léo & le Prof Tech** pour le moment, mais éviter de présenter la chaîne comme réservée à l'informatique ; réévaluer le nom de marque avant publication si nécessaire.
+- Format maintenu : 1 Short = 3 questions-réponses, portraits officiels fixes côte à côte, voix françaises naturelles, réponses sourcées, aucune publication sans validation de la qualité.
+- Varier les thèmes dans la semaine sans promettre de publication de contenus non vérifiés. Chaque question doit avoir une référence fiable ; éviter les affirmations sensationnalistes trompeuses.
