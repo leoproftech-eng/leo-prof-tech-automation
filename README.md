@@ -43,3 +43,11 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - **Aucune vidéo animée par SadTalker n'a encore été rendue**. Une connexion réussie ne valide ni le fonctionnement de l'endpoint de rendu, ni le quota GPU, ni les gestes.
 - Le connecteur actuel est expérimental : les arguments de génération doivent être alignés sur l'API effective du Space avant un appel réel.
 - La publication YouTube reste inactive. Le test de rendu nécessitera les portraits de Léo et du Prof ainsi que les pistes vocales de Studio V2.
+
+## Pilote 3 questions : version 2D (26 novembre 2026)
+- Nouveau moteur `pilot_3_questions.py` : 3 questions distinctes, 6 scènes et 2 personnages visibles ensemble.
+- Les voix sont synthétisées avec `edge-tts` (Léo : EloiseNeural ; Prof : HenriNeural).
+- Animation labiale **approximative** fondée sur l'amplitude audio, plus gestes de bras simples ; ce n'est pas une synchronisation phonétique et ce ne sont pas encore les portraits officiels.
+- Workflow GitHub Actions manuel **« Pilote 3 questions - animation 2D (sans publication) »** dans `.github/workflows/pilot-3-questions.yml`.
+- À exécuter dans GitHub Actions via **Run workflow** ; résultat attendu dans les artifacts `leo-prof-3-questions-pilote`. L'exécution et la qualité réelle du MP4 n'ont pas encore été vérifiées.
+- **Aucune publication YouTube**, aucun déclencheur quotidien actif : obtenir l'accord sur le rendu avant d'automatiser la diffusion.
