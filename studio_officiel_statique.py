@@ -14,6 +14,8 @@ from edge_tts import Communicate
 ROOT = Path(__file__).resolve().parent
 AVATARS = ROOT / "assets" / "avatars"
 W, H = 720, 1280
+SUBSCRIBE_MESSAGE = ("Chaque jour, une nouvelle découverte pour mieux comprendre le monde ! "
+                     "Abonne-toi à Léo & le Prof pour apprendre quelque chose d'utile chaque jour.")
 BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 
@@ -72,9 +74,14 @@ def render(leo,prof,speaker,text,num,path):
         d.text((cx,759),name,anchor="mm",font=ft(24),fill=(9,28,52) if active else "white")
     accent=(255,203,72) if speaker=="Léo" else (70,225,233)
     d.rounded_rectangle((33,836,687,1157),radius=25,fill=(12,49,81),outline=accent,width=4)
-    d.rounded_rectangle((66,860,312,910),radius=14,fill=accent)
-    d.text((189,884),f"QUESTION {num} / 3",anchor="mm",font=ft(23),fill=(7,27,50))
-    d.text((659,884),"QUESTION" if speaker=="Léo" else "RÉPONSE",anchor="rm",font=ft(18),fill=(193,229,239))
+    if num == 4:
+        d.rounded_rectangle((66,860,320,910),radius=14,fill=(215,56,62))
+        d.text((193,884),"S'ABONNER",anchor="mm",font=ft(24),fill="white")
+        d.text((659,884),"À DEMAIN !",anchor="rm",font=ft(18),fill=(193,229,239))
+    else:
+        d.rounded_rectangle((66,860,312,910),radius=14,fill=accent)
+        d.text((189,884),f"QUESTION {num} / 3",anchor="mm",font=ft(23),fill=(7,27,50))
+        d.text((659,884),"QUESTION" if speaker=="Léo" else "RÉPONSE",anchor="rm",font=ft(18),fill=(193,229,239))
     size=37 if len(text)<57 else 29 if len(text)>125 else 33
     lines=wrap(d,text,ft(size),570)
     step=size+14;y=1030-(len(lines)-1)*step/2
@@ -118,13 +125,24 @@ async def main():
                 "-c:v","libx264","-preset","veryfast","-pix_fmt","yuv420p",
                 "-c:a","aac","-b:a","160k","-shortest","-movflags","+faststart",video)
             videos.append(video)
+    # Invitation finale prononcée par le Prof ; même avatar officiel.
+    cta_frame=out/"4_abonnement.png"
+    cta_audio=out/"4_abonnement.mp3"
+    cta_video=out/"4_abonnement.mp4"
+    render(leo,prof,"Le Prof",SUBSCRIBE_MESSAGE,4,cta_frame)
+    await speak(SUBSCRIBE_MESSAGE,args.prof_voice,cta_audio,"-5%")
+    cmd("-loop","1","-framerate","25","-i",cta_frame,"-i",cta_audio,
+        "-c:v","libx264","-preset","veryfast","-pix_fmt","yuv420p",
+        "-c:a","aac","-b:a","160k","-shortest","-movflags","+faststart",cta_video)
+    videos.append(cta_video)
     listing=out/"concat.txt"
     listing.write_text("".join(f"file '{v.name}'\n" for v in videos))
     final=out/"Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4"
     cmd("-f","concat","-safe","0","-i",listing,"-c","copy","-movflags","+faststart",final)
     (out/"metadata.json").write_text(json.dumps({"published":False,"voice_engine":"edge-tts",
         "leo_voice":args.leo_voice,"prof_voice":args.prof_voice,
-        "question_ids":[q["id"] for q in selected],"requires_approval":True},
+        "question_ids":[q["id"] for q in selected],"subscribe_message":SUBSCRIBE_MESSAGE,
+        "requires_approval":True},
         ensure_ascii=False,indent=2))
     print("Fichier de validation :",final)
 
