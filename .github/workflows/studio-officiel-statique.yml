@@ -39,5 +39,6 @@ jobs:
           path: |
             output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
             output_officiel/metadata.json
+            output_officiel/youtube_description.txt
           retention-days: 7
           if-no-files-found: error
