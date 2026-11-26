@@ -61,7 +61,7 @@ def render(leo,prof,speaker,text,num,path):
     for x in range(0,W,72):d.line((x,0,x,H),fill=(17,48,73))
     for y in range(0,H,85):d.line((0,y,W,y),fill=(17,48,73))
     d.rounded_rectangle((34,30,686,132),radius=24,fill=(12,53,90),outline=(58,125,175),width=2)
-    d.text((360,81),"LÉO  &  LE PROF TECH",anchor="mm",font=ft(35),fill="white")
+    d.text((360,81),"LÉO  &  LE PROF",anchor="mm",font=ft(35),fill="white")
     d.rounded_rectangle((34,154,686,226),radius=20,fill=(16,56,88))
     d.text((360,190),"3 QUESTIONS  •  3 RÉPONSES",anchor="mm",font=ft(25),fill=(235,244,252))
     panel(image,leo,47,279,speaker=="Léo",(255,203,72))
@@ -82,7 +82,7 @@ def render(leo,prof,speaker,text,num,path):
         d.text((360,int(y)),line,anchor="mm",font=ft(size),fill="white");y+=step
     for n in range(3):
         d.rounded_rectangle((267+n*65,1192,315+n*65,1203),radius=5,fill=(255,203,72) if n<num else (61,97,121))
-    d.text((360,1244),"LA TECHNOLOGIE EXPLIQUÉE SIMPLEMENT",anchor="mm",font=ft(18),fill=(197,220,235))
+    d.text((360,1244),"SCIENCES  •  DÉCOUVERTES  •  CULTURE",anchor="mm",font=ft(18),fill=(197,220,235))
     image.save(path)
 
 async def speak(text,voice,path,rate):
@@ -120,7 +120,7 @@ async def main():
             videos.append(video)
     listing=out/"concat.txt"
     listing.write_text("".join(f"file '{v.name}'\n" for v in videos))
-    final=out/"Leo_Prof_Tech_Officiel_Voix_Naturelles.mp4"
+    final=out/"Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4"
     cmd("-f","concat","-safe","0","-i",listing,"-c","copy","-movflags","+faststart",final)
     (out/"metadata.json").write_text(json.dumps({"published":False,"voice_engine":"edge-tts",
         "leo_voice":args.leo_voice,"prof_voice":args.prof_voice,
