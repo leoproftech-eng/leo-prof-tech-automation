@@ -1,0 +1,41 @@
+name: Test connexion YouTube - téléversement PRIVÉ uniquement
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  youtube_private_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Installer les dépendances
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          python -m pip install -r requirements.txt
+          python -m pip install 'google-api-python-client>=2,<3' 'google-auth>=2,<3' 'google-auth-httplib2>=0.2,<1'
+      - name: Générer une vidéo de test avec le modèle approuvé
+        run: python studio_officiel_statique.py --start 0
+      - name: Téléverser en mode privé (validation du compte obligatoire)
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: |
+          python youtube_upload_private.py \
+            --video output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4 \
+            --metadata output_officiel/metadata.json
+      - name: Conserver le rendu de vérification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-test-prive-rendu
+          path: |
+            output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
+            output_officiel/metadata.json
+          retention-days: 7
+          if-no-files-found: ignore
