@@ -112,3 +112,10 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - Chaque exécution réussie conserve un MP4, des métadonnées et une description dans les **artifacts GitHub Actions** pendant 14 jours.
 - **YouTube n'est pas connecté à GitHub pour téléverser automatiquement : aucune publication n'est activée.** Les premiers rendus et leur message d'abonnement doivent rester contrôlés avant publication.
 - Un workflow créé n'est pas la preuve d'une exécution réussie ; vérifier les premières exécutions dans GitHub Actions.
+
+## Préparation connexion YouTube (26 novembre 2026)
+- Vérification via le connecteur GitHub : dépôt et workflows accessibles, mais les workflows actuels n'effectuent pas de transfert vers YouTube.
+- **Ajouté** : `youtube_upload_private.py` et `.github/workflows/youtube-private-test.yml`, test manuel avec vérification stricte de la chaîne `UCk-B48dgzUSkcWsQxAQboQw`, téléversement en mode privé uniquement.
+- **Ajouté** : `YOUTUBE_OAUTH_CONFIGURATION.md`, procédure d'autorisation Google sans installer de logiciel sur le PC et stockage de trois secrets GitHub Actions.
+- Connexion Google OAuth encore **non confirmée** ; impossible de vérifier les secrets depuis l'interface de lecture GitHub disponible. Le téléversement n'a pas encore été testé.
+- Aucune mise en ligne publique automatique n'a été activée.
