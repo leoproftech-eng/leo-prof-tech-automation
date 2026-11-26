@@ -98,3 +98,9 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - Le Prof prononce toujours l'appel à l'abonnement approuvé, et le bouton graphique « S'ABONNER » apparaît.
 - **Attention** : le lien imprimé dans l'image d'une vidéo n'est pas interactif ; les URL placées dans les descriptions et commentaires des Shorts ne sont généralement pas cliquables. Il faut aussi inviter les spectateurs à ouvrir le profil de la chaîne et à toucher le bouton d'abonnement.
 - Le workflow reste manuel et aucune vidéo n'est encore publiée automatiquement.
+
+## Validation utilisateur des éléments audiovisuels — 26 novembre 2026
+- **Voix des personnages approuvées** : conserver les voix actuellement validées dans le Studio officiel.
+- **Portraits/avatars approuvés** : garder strictement `assets/avatars/leo.png` et `assets/avatars/prof.png` ; ne pas remplacer leurs visages ni leurs tenues.
+- La carte d'abonnement a été corrigée dans le code pour supprimer l'URL visuellement superposée ; un rendu de validation reste à lancer pour contrôler la nouvelle carte finale.
+- Priorité suivante : publier un premier Short validé manuellement, puis préparer et tester l'intégration YouTube sans déclencher de publication automatique prématurée.
