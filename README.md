@@ -9,7 +9,7 @@ Créer un YouTube Short éducatif par jour en français, avec deux avatars noirs
 - **1 seul Short par jour contenant 3 questions et 3 réponses**, publication à 18 h, fuseau `America/Toronto`.
 - Niveau : débutant, intermédiaire et expert.
 - Domaines : informatique, IA, réseaux, cloud, sécurité, programmation et innovations.
-- Format : vertical 9:16 ; durée cible 45 à 90 secondes selon le rythme et la clarté des réponses. Léo à gauche et le Prof à droite, visibles ensemble.
+- Format : vertical 9:16 ; durée cible 45 à 90 secondes selon le rythme et la clarté des réponses. Léo à gauche et le Prof à droite, visibles ensemble, tournés l'un vers l'autre (face à face).
 - Aucune installation sur le PC de l'utilisateur.
 - Budget cible : 0 $ CA/mois, sous réserve des quotas cloud.
 
@@ -34,6 +34,6 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 ## Spécification validée du format
 - Une seule publication quotidienne, jamais trois Shorts distincts.
 - Une vidéo = trois séquences : question 1/réponse 1 ; question 2/réponse 2 ; question 3/réponse 3.
-- Deux avatars noirs côte à côte pendant toute la vidéo ; mise en évidence de celui qui parle.
+- Deux avatars noirs face à face dans le même décor : Léo à gauche regarde vers la droite, le Prof à droite regarde vers la gauche ; mise en évidence de celui qui parle.
 - Conserver les voix françaises jugées satisfaisantes ; améliorer l'animation, la synchronisation et le montage.
 - La version Studio V2 actuelle est un prototype à une seule question : **elle doit être adaptée et testée avant toute mise en ligne.**
