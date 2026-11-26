@@ -119,7 +119,7 @@ async def main():
                 "-c:a","aac","-b:a","160k","-shortest","-movflags","+faststart",video)
             videos.append(video)
     listing=out/"concat.txt"
-    listing.write_text("".join(f"file '{v.name}'\\n" for v in videos))
+    listing.write_text("".join(f"file '{v.name}'\n" for v in videos))
     final=out/"Leo_Prof_Tech_Officiel_Voix_Naturelles.mp4"
     cmd("-f","concat","-safe","0","-i",listing,"-c","copy","-movflags","+faststart",final)
     (out/"metadata.json").write_text(json.dumps({"published":False,"voice_engine":"edge-tts",
