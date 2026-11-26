@@ -46,5 +46,53 @@
     "question": "Quelle différence entre synchronisation et sauvegarde ?",
     "answer": "La synchronisation répercute les changements entre tes appareils, parfois aussi les suppressions. Une sauvegarde permet de retrouver une ancienne version en cas de problème.",
     "source": "https://support.microsoft.com/onedrive"
+  },
+  {
+    "id": "q007",
+    "category": "Astronomie",
+    "level": "débutant",
+    "question": "Pourquoi ne peut-on pas entendre quelqu'un crier dans l'espace ?",
+    "answer": "Parce que le son a besoin d'un milieu, comme l'air, pour se propager. Dans le vide spatial, il n'y a presque pas de matière pour transporter les vibrations sonores.",
+    "source": "https://science.nasa.gov/"
+  },
+  {
+    "id": "q008",
+    "category": "Nature",
+    "level": "débutant",
+    "question": "Pourquoi voit-on l'éclair avant d'entendre le tonnerre ?",
+    "answer": "La lumière se déplace beaucoup plus vite que le son. Nous voyons donc l'éclair presque immédiatement, alors que le bruit du tonnerre met davantage de temps à nous parvenir.",
+    "source": "https://www.weather.gov/safety/lightning-science-thunder"
+  },
+  {
+    "id": "q009",
+    "category": "Géographie",
+    "level": "débutant",
+    "question": "Pourquoi y a-t-il des saisons sur Terre ?",
+    "answer": "Parce que l'axe de la Terre est incliné. Pendant sa révolution autour du Soleil, chaque hémisphère reçoit des rayons plus ou moins directs et des journées plus ou moins longues.",
+    "source": "https://spaceplace.nasa.gov/seasons/en/"
+  },
+  {
+    "id": "q010",
+    "category": "Corps humain",
+    "level": "intermédiaire",
+    "question": "Pourquoi notre cœur bat-il même quand nous dormons ?",
+    "answer": "Parce que notre corps a toujours besoin d'oxygène et de nutriments. Le cœur continue de pomper le sang pendant le sommeil, même si sa fréquence ralentit souvent.",
+    "source": "https://www.nhlbi.nih.gov/health/heart"
+  },
+  {
+    "id": "q011",
+    "category": "Histoire",
+    "level": "débutant",
+    "question": "Comment les gens écrivaient-ils avant l'invention du papier moderne ?",
+    "answer": "Ils utilisaient différents supports selon les époques et les régions : tablettes d'argile, papyrus, parchemin ou bambou. L'écriture existait donc bien avant nos cahiers.",
+    "source": "https://www.britannica.com/topic/writing"
+  },
+  {
+    "id": "q012",
+    "category": "Culture générale",
+    "level": "débutant",
+    "question": "Pourquoi une semaine compte-t-elle sept jours ?",
+    "answer": "Cette tradition remonte à l'Antiquité et s'est transmise à travers plusieurs civilisations et religions. Le découpage en sept jours est une convention historique, pas une loi de la nature.",
+    "source": "https://www.britannica.com/science/week"
   }
 ]
