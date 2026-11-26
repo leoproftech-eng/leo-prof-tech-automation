@@ -1,0 +1,41 @@
+name: Pilote 3 questions - animation 2D (sans publication)
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: Index de départ des trois questions (0 à 5)
+        required: false
+        default: '0'
+permissions:
+  contents: read
+jobs:
+  build_pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Installer les dépendances vidéo
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          python -m pip install -r requirements.txt
+      - name: Vérifier la syntaxe du moteur
+        run: python -m py_compile pilot_3_questions.py
+      - name: Générer le pilote avec trois questions
+        run: python pilot_3_questions.py --start "${{ inputs.start }}" --output output_pilot_3
+      - name: Contrôler le MP4
+        run: |
+          test -s output_pilot_3/leo_prof_3_questions_pilote.mp4
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 output_pilot_3/leo_prof_3_questions_pilote.mp4
+      - name: Préparer le téléchargement
+        uses: actions/upload-artifact@v4
+        with:
+          name: leo-prof-3-questions-pilote
+          path: |
+            output_pilot_3/leo_prof_3_questions_pilote.mp4
+            output_pilot_3/metadata.json
+          retention-days: 7
+          if-no-files-found: error
