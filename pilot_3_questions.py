@@ -100,7 +100,7 @@ def render_frame(speaker, text, topic, qidx, amplitude, t):
     for xx in range(0, W, 54):
         d.line((xx, 0, xx, H), fill=(15, 37, 62), width=1)
     d.rounded_rectangle((18, 28, 522, 105), radius=22, fill=(18, 62, 100))
-    d.text((270, 68), "LÉO & LE PROF TECH", font=font(26, True), anchor="mm", fill="white")
+    d.text((270, 68), "LÉO & LE PROF", font=font(26, True), anchor="mm", fill="white")
     d.rounded_rectangle((18, 124, 522, 176), radius=15, fill=(248, 199, 65))
     centered_text(d, f"QUESTION {qidx}/3  •  {topic.upper()}", 270, 151, 476, 19, (14, 33, 55))
     d.rounded_rectangle((16, 195, 524, 641), radius=22, fill=(13, 45, 77))
