@@ -85,16 +85,15 @@ def render(leo,prof,speaker,text,num,path):
         d.text((189,884),f"QUESTION {num} / 3",anchor="mm",font=ft(23),fill=(7,27,50))
         d.text((659,884),"QUESTION" if speaker=="Léo" else "RÉPONSE",anchor="rm",font=ft(18),fill=(193,229,239))
     if num == 4:
-        # URL réelle, visible à l'écran. Le texte incrusté dans un Short n'est pas cliquable.
-        lines=wrap(d,text,ft(25),570)
-        y=947
-        for line in lines:
-            d.text((360,y),line,anchor="mm",font=ft(25),fill="white")
-            y+=38
-        d.text((360,1102),"LIEN D'ABONNEMENT : PROFIL DE LA CHAÎNE",
-               anchor="mm",font=ft(18),fill=(255,218,105))
-        d.text((360,1135),"youtube.com/channel/UCk-B48dgzUSkcWsQxAQboQw",
-               anchor="mm",font=ft(15),fill=(191,224,244))
+        # Le texte dans une vidéo YouTube n'est pas cliquable.
+        # On conserve le message parlé complet, mais l'écran final reste lisible.
+        d.text((360,978),"UNE DÉCOUVERTE CHAQUE JOUR !",
+               anchor="mm",font=ft(29),fill="white")
+        d.text((360,1034),"Abonne-toi à Léo & le Prof",
+               anchor="mm",font=ft(28),fill=(255,227,152))
+        d.rounded_rectangle((89,1082,631,1138),radius=16,fill=(23,85,127))
+        d.text((360,1110),"OUVRE NOTRE PROFIL POUR T'ABONNER",
+               anchor="mm",font=ft(19),fill="white")
     else:
         size=37 if len(text)<57 else 29 if len(text)>125 else 33
         lines=wrap(d,text,ft(size),570)
