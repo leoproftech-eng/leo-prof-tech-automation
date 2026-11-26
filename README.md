@@ -51,3 +51,8 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - Workflow GitHub Actions manuel **« Pilote 3 questions - animation 2D (sans publication) »** dans `.github/workflows/pilot-3-questions.yml`.
 - À exécuter dans GitHub Actions via **Run workflow** ; résultat attendu dans les artifacts `leo-prof-3-questions-pilote`. L'exécution et la qualité réelle du MP4 n'ont pas encore été vérifiées.
 - **Aucune publication YouTube**, aucun déclencheur quotidien actif : obtenir l'accord sur le rendu avant d'automatiser la diffusion.
+
+## Pilote statique validé localement (26 novembre 2026)
+- Un MP4 local de 30,44 secondes a été créé avec les portraits originaux de Léo (chandail bleu) et du Prof (blouse blanche). Il conserve la bande-son du précédent pilote 3 questions.
+- **Ce MP4 n'est pas encore intégré aux GitHub Actions** : les deux PNG originaux doivent être ajoutés à `assets/avatars/leo.png` et `assets/avatars/prof.png` et le moteur de rendu statique doit remplacer le moteur 2D expérimental.
+- Ne pas publier automatiquement avant vérification du son, de la correspondance paroles / textes et approbation du pilote.
