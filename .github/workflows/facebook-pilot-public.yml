@@ -1,0 +1,34 @@
+name: Facebook Reel - pilote public (test manuel unique)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: leo-prof-facebook-test-public
+  cancel-in-progress: false
+jobs:
+  facebook-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Installer les dépendances
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          python -m pip install -r requirements.txt 'requests>=2,<3'
+      - name: Générer l'épisode pilote avec les avatars officiels
+        run: |
+          test -s assets/avatars/leo.png
+          test -s assets/avatars/prof.png
+          python studio_officiel_statique.py --start 0
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
+      - name: Publier un Reel pilote public sur Léo & le Prof (anti-doublon)
+        env:
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+        run: |
+          python facebook_reels_publish.py --start 0 --day 2026-11-26
