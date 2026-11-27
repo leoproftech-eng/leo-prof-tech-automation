@@ -25,7 +25,7 @@ def required(name):
 def api(method, url, token, **kwargs):
     kwargs.setdefault("timeout", 90)
     headers = kwargs.pop("headers", {})
-    headers["Authorization"] = f"OAuth {token}"
+    headers["Authorization"] = f"{'OAuth' if url.startswith(UPLOAD_BASE) else 'Bearer'} {token}"
     response = requests.request(method, url, headers=headers, **kwargs)
     try:
         payload = response.json()
