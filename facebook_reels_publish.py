@@ -43,7 +43,7 @@ def already_published(page_id, token, marker):
     """
     next_url = f"{GRAPH}/{page_id}/video_reels"
     params = {"fields": "id,description", "limit": 50}
-    for _ in range(5):
+    for _ in range(100):
         result = api("GET", next_url, token, params=params)
         for entry in result.get("data", []):
             if marker in entry.get("description", ""):
