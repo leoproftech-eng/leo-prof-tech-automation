@@ -1,0 +1,48 @@
+name: Meta - vérifier l'accès Facebook (aucune publication)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Tester uniquement la connexion à la Page Léo & le Prof
+        env:
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json, os, urllib.parse, urllib.request, urllib.error, sys
+          pid=os.getenv("META_PAGE_ID","").strip()
+          token=os.getenv("META_PAGE_ACCESS_TOKEN","").strip()
+          if not pid or not token:
+              print("ECHEC: META_PAGE_ID ou META_PAGE_ACCESS_TOKEN est absent.")
+              sys.exit(1)
+          if not pid.isdecimal():
+              print("ECHEC: META_PAGE_ID doit être numérique.")
+              sys.exit(1)
+          def get(url):
+              req=urllib.request.Request(url,headers={"Authorization":"Bearer "+token})
+              try:
+                  with urllib.request.urlopen(req,timeout=25) as response:
+                      return json.load(response)
+              except urllib.error.HTTPError as e:
+                  try:
+                      payload=json.loads(e.read().decode())
+                      err=payload.get("error",{})
+                      print("ERREUR META : code",err.get("code"),"sous-code",err.get("error_subcode"))
+                      print("Message :",err.get("message","inconnu"))
+                  except Exception:
+                      print("ERREUR META : HTTP",e.code)
+                  sys.exit(1)
+          # Le token est celui d'un utilisateur système Meta : le Page ID doit être visible.
+          page=get("https://graph.facebook.com/v27.0/"+pid+"?fields=id,name")
+          print("Page reconnue :",page.get("name"),"| ID :",page.get("id"))
+          if page.get("name")!="Léo & le Prof" or str(page.get("id"))!=pid:
+              print("ECHEC: le jeton ne correspond pas à la Page officielle attendue.")
+              sys.exit(1)
+          print("SUCCÈS : jeton valide pour lire la Page. AUCUNE PUBLICATION effectuée.")
+          print("ATTENTION : ce test ne prouve pas encore l'autorisation de publier des Reels.")
+          PY
