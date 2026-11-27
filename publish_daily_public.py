@@ -31,15 +31,16 @@ def uploaded_descriptions(youtube,playlist_id):
             sn=item.get("snippet",{})
             yield sn.get("description",""),sn.get("resourceId",{}).get("videoId","")
         token=page.get("nextPageToken")
-        if not token:break
+        if not token:return
+    raise RuntimeError("Historique YouTube trop long pour vérifier les doublons")
 
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--start",required=True,type=int)
     p.add_argument("--day",required=True,help="date locale YYYY-MM-DD")
     args=p.parse_args()
-    if args.start not in (3,6,9):
-        raise ValueError("Publication automatique limitée à trois lots prévalidés après le pilote")
+    if args.start < 3 or args.start % 3 != 0:
+        raise ValueError("Index de lot invalide ou réservé au pilote")
     datetime.date.fromisoformat(args.day)
     key="LEO-PROF-JOUR-"+args.day
     file=Path("output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4")
