@@ -119,3 +119,9 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - **Ajouté** : `YOUTUBE_OAUTH_CONFIGURATION.md`, procédure d'autorisation Google sans installer de logiciel sur le PC et stockage de trois secrets GitHub Actions.
 - Connexion Google OAuth encore **non confirmée** ; impossible de vérifier les secrets depuis l'interface de lecture GitHub disponible. Le téléversement n'a pas encore été testé.
 - Aucune mise en ligne publique automatique n'a été activée.
+
+## Approbation de publication du premier Short — 26 novembre 2026
+- Le propriétaire de la chaîne a confirmé que le pilote privé de 53 secondes « Léo & le Prof — Pilote privé de validation » est **prêt à être publié**.
+- La vidéo a été constatée dans YouTube Studio → Vidéos Shorts, visibilité **Privée**. L'approbation n'est pas une confirmation de changement de visibilité : publication publique toujours à vérifier.
+- Publication initiale recommandée via YouTube Studio, sans nouveau téléversement ni risque de doublon.
+- Le workflow de génération quotidienne ne publie rien sur YouTube ; le branchement quotidien vers des publications publiques attend encore la vérification des quotas OAuth et une banque de questions renouvelée.
