@@ -12,7 +12,7 @@ import requests
 
 GRAPH_VERSION = "v27.0"
 GRAPH = f"https://graph.facebook.com/{GRAPH_VERSION}"
-UPLOAD_BASE = "https://rupload.facebook.com/video-upload/"
+UPLOAD_BASE = f"https://rupload.facebook.com/video-upload/{GRAPH_VERSION}/"
 VIDEO_PATH = Path("output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4")
 META_PATH = Path("output_officiel/metadata.json")
 
@@ -25,7 +25,7 @@ def required(name):
 def api(method, url, token, **kwargs):
     kwargs.setdefault("timeout", 90)
     headers = kwargs.pop("headers", {})
-    headers["Authorization"] = f"Bearer {token}"
+    headers["Authorization"] = f"OAuth {token}"
     response = requests.request(method, url, headers=headers, **kwargs)
     try:
         payload = response.json()
