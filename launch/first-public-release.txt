@@ -1,0 +1,6 @@
+Autorisation de lancement du premier Short approuvé.
+Chaîne: Léo & le Prof (UCk-B48dgzUSkcWsQxAQboQw).
+Contenu: q001, q002, q003 avec avatars et voix validés, appel à l'abonnement.
+Publication: publique. Une nouvelle vidéo sera téléversée ; le pilote privé restera privé.
+Contrôle: publish_launch_public.py vérifie le compte et empêche la répétition avec RELEASE_KEY.
+Date décision: 2026-11-26.
