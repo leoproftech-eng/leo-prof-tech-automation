@@ -125,3 +125,12 @@ Ne jamais ajouter de mot de passe, de jeton OAuth ni de clé API dans ce dépôt
 - La vidéo a été constatée dans YouTube Studio → Vidéos Shorts, visibilité **Privée**. L'approbation n'est pas une confirmation de changement de visibilité : publication publique toujours à vérifier.
 - Publication initiale recommandée via YouTube Studio, sans nouveau téléversement ni risque de doublon.
 - Le workflow de génération quotidienne ne publie rien sur YouTube ; le branchement quotidien vers des publications publiques attend encore la vérification des quotas OAuth et une banque de questions renouvelée.
+
+## Mise en route confiée à GitHub — 26 novembre 2026
+- L'utilisateur autorise la publication du premier pilote approuvé et délègue la mise en route sans intervention manuelle.
+- Le workflow `.github/workflows/first-public-release.yml` a été ajouté ; le fichier déclencheur `launch/first-public-release.txt` a été créé pour demander une publication **publique unique** (nouveau téléversement, sans modifier le pilote privé).
+- Le programme `publish_launch_public.py` confirme la chaîne cible, recherche une publication existante avec la même référence et demande `privacyStatus=public`. La **réussite de l'exécution et la visibilité publique n'ont pas pu être vérifiées depuis cette conversation** : inspecter le journal GitHub Actions et le lien YouTube après exécution.
+- Le workflow quotidien `.github/workflows/daily-generate.yml` a été étendu pour publier, après détection de la première publication, les trois autres lots prévalidés (q004–q012) à 18 h, heure locale de Toronto : **27, 28 et 29 novembre 2026**, sous réserve des retards GitHub, autorisations OAuth et vérifications YouTube.
+- Protection : refus de publier si la première publication n'est pas détectée, si la chaîne est différente ou si le lot a déjà été publié. Après ces trois lots, aucun renouvellement automatique des questions : le workflow s'arrête plutôt que de réutiliser des épisodes.
+- Google Auth Platform est en mode Test : le refresh token peut expirer sous 7 jours. Une solution durable requiert un changement de statut OAuth et un approvisionnement continu en questions vérifiées.
+- L'ancien pilote en mode privé est conservé pour archivage et n'est pas supprimé.
