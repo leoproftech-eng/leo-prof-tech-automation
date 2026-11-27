@@ -1,0 +1,48 @@
+name: Publication unique - lancement Léo & le Prof
+on:
+  push:
+    paths:
+      - 'launch/first-public-release.txt'
+permissions:
+  contents: read
+concurrency:
+  group: premiere-publication-leo-prof
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Préparer montage et YouTube Data API
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+          python -m pip install -r requirements.txt
+          python -m pip install 'google-api-python-client>=2,<3' 'google-auth>=2,<3' 'google-auth-httplib2>=0.2,<1'
+      - name: Générer le même modèle approuvé, trois questions vérifiées
+        run: |
+          test -s assets/avatars/leo.png
+          test -s assets/avatars/prof.png
+          python studio_officiel_statique.py --start 0
+          test -s output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
+      - name: Publier une seule fois sur la bonne chaîne YouTube
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: python publish_launch_public.py
+      - name: Sauvegarde de la vidéo et de la description
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lancement-leo-prof
+          path: |
+            output_officiel/Leo_et_le_Prof_Officiel_Voix_Naturelles.mp4
+            output_officiel/metadata.json
+            output_officiel/youtube_description.txt
+          retention-days: 14
+          if-no-files-found: ignore
