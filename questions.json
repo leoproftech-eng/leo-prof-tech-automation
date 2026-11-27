@@ -94,5 +94,173 @@
     "question": "Pourquoi une semaine compte-t-elle sept jours ?",
     "answer": "Cette tradition remonte à l'Antiquité et s'est transmise à travers plusieurs civilisations et religions. Le découpage en sept jours est une convention historique, pas une loi de la nature.",
     "source": "https://www.britannica.com/science/week"
+  },
+  {
+    "id": "q013",
+    "category": "Astronomie",
+    "level": "débutant",
+    "question": "Pourquoi la Lune change-t-elle de forme ?",
+    "answer": "La moitié de la Lune éclairée par le Soleil reste éclairée. Depuis la Terre, nous voyons une portion différente de cette moitié au fil de son orbite.",
+    "source": "https://science.nasa.gov/moon/moon-phases/"
+  },
+  {
+    "id": "q014",
+    "category": "Physique",
+    "level": "débutant",
+    "question": "Pourquoi un glaçon flotte-t-il dans l'eau ?",
+    "answer": "En gelant, l'eau forme une structure qui occupe davantage de volume. La glace est donc moins dense que l'eau liquide et flotte.",
+    "source": "https://www.usgs.gov/special-topics/water-science-school/science/water-density"
+  },
+  {
+    "id": "q015",
+    "category": "Nature",
+    "level": "débutant",
+    "question": "Pourquoi les feuilles sont-elles souvent vertes ?",
+    "answer": "Elles contiennent de la chlorophylle, un pigment qui absorbe surtout la lumière rouge et bleue. Une partie de la lumière verte est renvoyée vers nos yeux.",
+    "source": "https://www.britannica.com/science/chlorophyll"
+  },
+  {
+    "id": "q016",
+    "category": "Astronomie",
+    "level": "débutant",
+    "question": "Pourquoi le ciel est-il bleu ?",
+    "answer": "Les molécules de l'air diffusent davantage les courtes longueurs d'onde de la lumière solaire, comme le bleu, que les grandes longueurs d'onde.",
+    "source": "https://spaceplace.nasa.gov/blue-sky/en/"
+  },
+  {
+    "id": "q017",
+    "category": "Mathématiques",
+    "level": "débutant",
+    "question": "Pourquoi zéro est-il un nombre important ?",
+    "answer": "Il représente notamment une quantité nulle et permet de distinguer les positions des chiffres. Sans lui, écrire des nombres comme cent deux serait beaucoup moins pratique.",
+    "source": "https://www.britannica.com/science/zero-mathematics"
+  },
+  {
+    "id": "q018",
+    "category": "Biologie",
+    "level": "débutant",
+    "question": "Comment les poissons respirent-ils sous l'eau ?",
+    "answer": "La plupart utilisent des branchies. L'eau passe sur ces organes et l'oxygène dissous traverse leurs fines surfaces vers le sang.",
+    "source": "https://www.britannica.com/science/gill"
+  },
+  {
+    "id": "q019",
+    "category": "Astronomie",
+    "level": "débutant",
+    "question": "Pourquoi voit-on toujours presque la même face de la Lune ?",
+    "answer": "La Lune tourne sur elle-même en autant de temps qu'elle met pour faire le tour de la Terre. On appelle cela une rotation synchrone.",
+    "source": "https://science.nasa.gov/moon/"
+  },
+  {
+    "id": "q020",
+    "category": "Physique",
+    "level": "débutant",
+    "question": "Pourquoi un aimant attire-t-il certains métaux ?",
+    "answer": "Dans certains matériaux, comme le fer, de nombreuses petites régions magnétiques peuvent s'aligner sous l'effet d'un champ magnétique.",
+    "source": "https://www.britannica.com/science/ferromagnetism"
+  },
+  {
+    "id": "q021",
+    "category": "Géologie",
+    "level": "débutant",
+    "question": "Comment se forment les volcans ?",
+    "answer": "Du magma peut remonter depuis les profondeurs de la Terre. Lorsqu'il atteint la surface, les éruptions peuvent accumuler de la lave et des fragments de roche.",
+    "source": "https://www.usgs.gov/programs/VHP"
+  },
+  {
+    "id": "q022",
+    "category": "Corps humain",
+    "level": "débutant",
+    "question": "Pourquoi avons-nous besoin de dormir ?",
+    "answer": "Le sommeil contribue notamment à la mémoire, au fonctionnement du système immunitaire et à la récupération du corps. Il est essentiel à notre santé.",
+    "source": "https://www.nhlbi.nih.gov/health/sleep-deprivation"
+  },
+  {
+    "id": "q023",
+    "category": "Astronomie",
+    "level": "débutant",
+    "question": "Le Soleil est-il une étoile ?",
+    "answer": "Oui ! C'est l'étoile la plus proche de la Terre. Il produit son énergie principalement grâce à la fusion de noyaux d'hydrogène dans son cœur.",
+    "source": "https://science.nasa.gov/sun/"
+  },
+  {
+    "id": "q024",
+    "category": "Physique",
+    "level": "débutant",
+    "question": "Pourquoi un arc-en-ciel apparaît-il ?",
+    "answer": "La lumière du Soleil est déviée, réfléchie à l'intérieur des gouttes d'eau et séparée en différentes couleurs avant de revenir vers nos yeux.",
+    "source": "https://www.weather.gov/"
+  },
+  {
+    "id": "q025",
+    "category": "Nature",
+    "level": "débutant",
+    "question": "Pourquoi certaines espèces d'oiseaux migrent-elles ?",
+    "answer": "Elles se déplacent notamment pour trouver de la nourriture et des conditions favorables à la reproduction. Les itinéraires varient selon les espèces.",
+    "source": "https://www.allaboutbirds.org/news/the-basics-how-why-and-where-of-bird-migration/"
+  },
+  {
+    "id": "q026",
+    "category": "Géographie",
+    "level": "débutant",
+    "question": "Quelle différence y a-t-il entre météo et climat ?",
+    "answer": "La météo décrit les conditions atmosphériques à court terme. Le climat décrit les tendances et variations de ces conditions sur de longues périodes.",
+    "source": "https://www.noaa.gov/"
+  },
+  {
+    "id": "q027",
+    "category": "Technologie",
+    "level": "débutant",
+    "question": "Comment fonctionne un code QR ?",
+    "answer": "Ses petits carrés représentent des données codées. Un lecteur repère la grille, décode les motifs et peut reconstituer un texte ou une adresse web.",
+    "source": "https://www.qrcode.com/en/"
+  },
+  {
+    "id": "q028",
+    "category": "Physique",
+    "level": "débutant",
+    "question": "Pourquoi une paille semble-t-elle cassée dans un verre d'eau ?",
+    "answer": "La lumière change de direction en passant de l'eau à l'air. Ce phénomène, appelé réfraction, modifie la position apparente de la partie immergée.",
+    "source": "https://www.britannica.com/science/refraction"
+  },
+  {
+    "id": "q029",
+    "category": "Biologie",
+    "level": "débutant",
+    "question": "Pourquoi les abeilles visitent-elles les fleurs ?",
+    "answer": "Elles y récoltent du nectar et du pollen. En passant d'une fleur à l'autre, elles peuvent aussi transporter du pollen et contribuer à la reproduction des plantes.",
+    "source": "https://www.fs.usda.gov/wildflowers/pollinators/"
+  },
+  {
+    "id": "q030",
+    "category": "Astronomie",
+    "level": "débutant",
+    "question": "Qu'est-ce qu'une année-lumière ?",
+    "answer": "C'est une unité de distance, et non de temps. Elle correspond à la distance parcourue par la lumière dans le vide pendant une année.",
+    "source": "https://science.nasa.gov/"
+  },
+  {
+    "id": "q031",
+    "category": "Géologie",
+    "level": "débutant",
+    "question": "Pourquoi la Terre tremble-t-elle ?",
+    "answer": "Des roches soumises à des contraintes peuvent se déplacer brutalement le long d'une faille. L'énergie libérée se propage sous forme d'ondes sismiques.",
+    "source": "https://www.usgs.gov/programs/earthquake-hazards"
+  },
+  {
+    "id": "q032",
+    "category": "Corps humain",
+    "level": "débutant",
+    "question": "À quoi servent les globules rouges ?",
+    "answer": "Ils transportent principalement l'oxygène des poumons vers les tissus grâce à une protéine appelée hémoglobine.",
+    "source": "https://medlineplus.gov/"
+  },
+  {
+    "id": "q033",
+    "category": "Mathématiques",
+    "level": "débutant",
+    "question": "Pourquoi un nombre pair est-il divisible par deux ?",
+    "answer": "C'est précisément la définition d'un entier pair : on peut le partager en deux groupes entiers égaux, sans reste.",
+    "source": "https://www.britannica.com/science/number-mathematics"
   }
 ]
