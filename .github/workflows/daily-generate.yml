@@ -1,4 +1,4 @@
-name: Génération quotidienne - Léo & le Prof (sans publication)
+name: Léo & le Prof - Génération et publication quotidienne (lots vérifiés)
 on:
   schedule:
     # Heure de Québec: 22:00 UTC en été, 23:00 UTC en hiver.
@@ -37,10 +37,10 @@ jobs:
           # peut sauter la journée; il faut alors la relancer manuellement.
           should_run = manual or now.hour == 18
           # Ne jamais boucler à l'infini sur les mêmes 12 questions.
-          if not manual and (n < 0 or n >= total_batches):
+          if not manual and (n < 0 or n >= total_batches - 1):
               should_run = False
               print("Banque épuisée : ajouter 3 nouvelles questions validées par journée.")
-          batch = 0 if manual else max(n, 0)
+          batch = 0 if manual else max(n + 1, 0)
           with open(os.environ["GITHUB_OUTPUT"], "a") as out:
               out.write(f"run={'true' if should_run else 'false'}\n")
               out.write(f"start={batch*3}\n")
@@ -57,6 +57,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg fonts-dejavu-core
           python -m pip install -r requirements.txt
+          python -m pip install 'google-api-python-client>=2,<3' 'google-auth>=2,<3' 'google-auth-httplib2>=0.2,<1'
       - name: Vérifier les assets et générer le Short
         if: steps.plan.outputs.run == 'true'
         run: |
@@ -76,3 +77,11 @@ jobs:
             output_officiel/youtube_description.txt
           retention-days: 14
           if-no-files-found: error
+      - name: Publier sur YouTube si le pilote est déjà en ligne
+        if: github.event_name == 'schedule' && steps.plan.outputs.run == 'true'
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: |
+          python publish_daily_public.py --start "${{ steps.plan.outputs.start }}" --day "${{ steps.plan.outputs.day }}"
