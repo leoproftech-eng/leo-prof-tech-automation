@@ -57,7 +57,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg fonts-dejavu-core
           python -m pip install -r requirements.txt
-          python -m pip install 'google-api-python-client>=2,<3' 'google-auth>=2,<3' 'google-auth-httplib2>=0.2,<1'
+          python -m pip install 'google-api-python-client>=2,<3' 'google-auth>=2,<3' 'google-auth-httplib2>=0.2,<1' 'requests>=2,<3'
       - name: Vérifier les assets et générer le Short
         if: steps.plan.outputs.run == 'true'
         run: |
@@ -85,3 +85,14 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
         run: |
           python publish_daily_public.py --start "${{ steps.plan.outputs.start }}" --day "${{ steps.plan.outputs.day }}"
+      - name: Publier le même MP4 en Facebook Reel (si Meta autorisé)
+        if: github.event_name == 'schedule' && steps.plan.outputs.run == 'true'
+        env:
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+        run: |
+          if [ -z "$META_PAGE_ID" ] || [ -z "$META_PAGE_ACCESS_TOKEN" ]; then
+            echo "Meta non connecté : aucune publication Facebook. Ajouter META_PAGE_ID et META_PAGE_ACCESS_TOKEN aux Secrets GitHub."
+            exit 0
+          fi
+          python facebook_reels_publish.py --start "${{ steps.plan.outputs.start }}" --day "${{ steps.plan.outputs.day }}"
