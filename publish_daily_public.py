@@ -1,5 +1,5 @@
 """Publication quotidienne d'épisodes inédits validés dans questions.json.
-Épisodes possibles : index 3, 6, 9. Un seul Short par date ; aucun doublon.
+Épisodes possibles : tous les lots complets après le pilote. Un seul Short par date ; aucun doublon.
 Le lancement du pilote doit être déjà présent dans les téléversements YouTube.
 """
 import argparse
@@ -24,7 +24,7 @@ def required(name):
 
 def uploaded_descriptions(youtube,playlist_id):
     token=None
-    for _ in range(5):
+    for _ in range(100):
         page=youtube.playlistItems().list(
             part="snippet", playlistId=playlist_id, maxResults=50,pageToken=token).execute()
         for item in page.get("items",[]):
