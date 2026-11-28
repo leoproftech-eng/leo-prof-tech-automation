@@ -5,6 +5,15 @@ on:
     - cron: '0 22 * * *'
     - cron: '0 23 * * *'
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publier le lot du jour (false = validation seulement)'
+        type: boolean
+        default: false
+      day:
+        description: 'Date du lot à récupérer (YYYY-MM-DD, vide = aujourd’hui)'
+        type: string
+        default: ''
 permissions:
   contents: read
 concurrency:
@@ -22,29 +31,32 @@ jobs:
       - name: Choisir un lot inédit et filtrer l'heure locale
         id: plan
         shell: bash
+        env:
+          SCHEDULE_CRON: ${{ github.event.schedule }}
+          MANUAL_PUBLISH: ${{ inputs.publish }}
+          REQUESTED_DAY: ${{ inputs.day }}
         run: |
           python - <<'PY'
           import datetime, json, os
           from zoneinfo import ZoneInfo
           now = datetime.datetime.now(ZoneInfo("America/Toronto"))
           start_day = datetime.date(2026, 11, 27)
-          n = (now.date() - start_day).days
+          day = datetime.date.fromisoformat(os.environ['REQUESTED_DAY']) if os.environ.get('REQUESTED_DAY') else now.date()
+          n = (day - start_day).days
           questions = json.load(open("questions.json", encoding="utf8"))
           total_batches = len(questions) // 3
           manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
-          # Les deux cron UTC couvrent le changement heure d'été/hiver.
-          # Exécuter uniquement à 18h heure locale. Une exécution retardée
-          # peut sauter la journée; il faut alors la relancer manuellement.
-          should_run = manual or now.hour == 18
-          # Ne jamais boucler à l'infini sur les mêmes 12 questions.
-          if not manual and (n < 0 or n >= total_batches - 1):
-              should_run = False
-              print("Banque épuisée : ajouter 3 nouvelles questions validées par journée.")
-          batch = 0 if manual else max(n + 1, 0)
+          publish = not manual or os.environ.get('MANUAL_PUBLISH') == 'true'
+          expected_cron = '0 22 * * *' if now.dst() else '0 23 * * *'
+          should_run = manual or os.environ.get('SCHEDULE_CRON') == expected_cron
+          batch = 0 if manual and not publish else n + 1
+          if should_run and not 0 <= batch < total_batches:
+              raise RuntimeError('Lot indisponible : vérifier la date et la banque de questions.')
           with open(os.environ["GITHUB_OUTPUT"], "a") as out:
               out.write(f"run={'true' if should_run else 'false'}\n")
               out.write(f"start={batch*3}\n")
-              out.write(f"day={now.date()}\n")
+              out.write(f"day={day}\n")
+              out.write(f"publish={str(publish).lower()}\n")
           print("date locale:",now.isoformat(),"lot:",batch+1,"exécuter:",should_run)
           PY
       - uses: actions/setup-python@v5
@@ -79,7 +91,7 @@ jobs:
           retention-days: 14
           if-no-files-found: error
       - name: Publier sur YouTube si le pilote est déjà en ligne
-        if: github.event_name == 'schedule' && steps.plan.outputs.run == 'true'
+        if: steps.plan.outputs.publish == 'true' && steps.plan.outputs.run == 'true'
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
@@ -87,13 +99,13 @@ jobs:
         run: |
           python publish_daily_public.py --start "${{ steps.plan.outputs.start }}" --day "${{ steps.plan.outputs.day }}"
       - name: Publier le même MP4 en Facebook Reel (si Meta autorisé)
-        if: ${{ !cancelled() && github.event_name == 'schedule' && steps.plan.outputs.run == 'true' && steps.video.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.plan.outputs.publish == 'true' && steps.plan.outputs.run == 'true' && steps.video.outcome == 'success' }}
         env:
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
           META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
         run: |
           if [ -z "$META_PAGE_ID" ] || [ -z "$META_PAGE_ACCESS_TOKEN" ]; then
             echo "Meta non connecté : aucune publication Facebook. Ajouter META_PAGE_ID et META_PAGE_ACCESS_TOKEN aux Secrets GitHub."
-            exit 0
+            exit 1
           fi
           python facebook_reels_publish.py --start "${{ steps.plan.outputs.start }}" --day "${{ steps.plan.outputs.day }}"
