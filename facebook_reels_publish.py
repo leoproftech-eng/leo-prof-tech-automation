@@ -33,7 +33,7 @@ def api(method, url, token, **kwargs):
         raise RuntimeError(f"Réponse Meta non JSON (HTTP {response.status_code})") from None
     if not response.ok or (isinstance(payload, dict) and payload.get("error")):
         error = payload.get("error", {}) if isinstance(payload, dict) else {}
-        raise RuntimeError(f"Erreur Meta (HTTP {response.status_code}): {error.get('message', 'inconnue')}")
+        raise RuntimeError(f"Erreur Meta (HTTP {response.status_code}, code={error.get('code')}, sous-code={error.get('error_subcode')}, trace={error.get('fbtrace_id')}): {error.get('message', 'inconnue')}")
     return payload
 
 def already_published(page_id, token, marker):
